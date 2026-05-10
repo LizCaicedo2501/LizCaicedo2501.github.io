@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liz | Vanguard Multimedia Engineer</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Manrope:wght@200..800&family=Space+Grotesk:wght@300..700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#cc0c39",
+                        secondary: "#1693a7",
+                        accent1: "#e6781e",
+                        accent2: "#c8cf02",
+                        light: "#f8fcc1",
+                        background: "#fafaf5",
+                        surface: "#ffffff",
+                        onBackground: "#1a1c19",
+                        darkBackground: "#0f100e",
+                        darkSurface: "#1a1c19",
+                        darkOnBackground: "#f5f5f0",
+                    },
+                    fontFamily: {
+                        headline: ["Newsreader", "serif"],
+                        body: ["Manrope", "sans-serif"],
+                        label: ["Space Grotesk", "sans-serif"]
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-in-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cc0c39;
+            border-radius: 10px;
+        }
+
+        /* Effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(204, 12, 57, 0.3);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #cc0c39, #e6781e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Welcome Screen Background */
+        .vanguard-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(200, 207, 2, 0.05) 0%, rgba(250, 250, 245, 1) 70%);
+        }
+
+        .vanguard-glow-red {
+            background: radial-gradient(circle at 80% 20%, rgba(204, 12, 57, 0.05) 0%, rgba(250, 250, 245, 0) 50%);
+        }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) translateY(-5px);
+            background-color: #128c7e;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-float svg {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+        }
+
+        /* Dark Mode Transitions */
+        body {
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .dark .glass {
+            background: rgba(26, 28, 25, 0.7);
+        }
+
+        .dark .vanguard-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(200, 207, 2, 0.05) 0%, rgba(15, 16, 14, 1) 70%);
+        }
+
+        .dark .vanguard-glow-red {
+            background: radial-gradient(circle at 80% 20%, rgba(204, 12, 57, 0.05) 0%, rgba(15, 16, 14, 0) 50%);
+        }
+        
+        /* ── Comprehensive Dark Mode Overrides ──────── */
+
+        /* Backgrounds */
+        .dark body { background-color: #0f100e; color: #f0f0eb; }
+        .dark #welcome-view { background-color: #0f100e; }
+        .dark .bg-background { background-color: #0f100e !important; }
+        .dark .bg-surface { background-color: #1a1c19 !important; }
+        .dark .bg-white { background-color: #1e2020 !important; }
+        .dark .dark\:bg-darkSurface { background-color: #1a1c19; }
+
+        /* Text */
+        .dark .text-onBackground { color: #f0f0eb !important; }
+        .dark .text-onBackground\/60 { color: rgba(240,240,235,0.65) !important; }
+        .dark .text-onBackground\/70 { color: rgba(240,240,235,0.75) !important; }
+        .dark .text-onBackground\/80 { color: rgba(240,240,235,0.85) !important; }
+        .dark .text-onBackground\/40 { color: rgba(240,240,235,0.45) !important; }
+        .dark .text-onBackground\/50 { color: rgba(240,240,235,0.55) !important; }
+        .dark .text-onBackground\/30 { color: rgba(240,240,235,0.35) !important; }
+        .dark .placeholder\:text-onBackground\/10::placeholder { color: rgba(240,240,235,0.12) !important; }
+        .dark .placeholder\:text-onBackground\/30::placeholder { color: rgba(240,240,235,0.3) !important; }
+
+        /* Header / Nav */
+        .dark header.glass {
+            background: rgba(15,16,14,0.85) !important;
+            border-bottom-color: rgba(255,255,255,0.06) !important;
+        }
+        .dark .nav-link { color: rgba(240,240,235,0.6) !important; }
+        .dark .nav-link:hover { color: #cc0c39 !important; }
+        .dark .nav-link.active { color: #cc0c39 !important; }
+
+        /* Sidebar */
+        .dark #sidebar-content {
+            background-color: #1a1c19 !important;
+            color: #f0f0eb;
+        }
+        .dark #sidebar-content h3 { color: #cc0c39; }
+        .dark #sidebar-content p { color: rgba(240,240,235,0.5); }
+
+        /* Hero badge */
+        .dark .inline-flex.bg-white {
+            background-color: rgba(255,255,255,0.06) !important;
+            border-color: rgba(255,255,255,0.08) !important;
+        }
+
+        /* Services section cards */
+        .dark .border-black\/5 { border-color: rgba(255,255,255,0.07) !important; }
+        .dark .border-black\/10 { border-color: rgba(255,255,255,0.1) !important; }
+        .dark .shadow-sm { box-shadow: 0 1px 3px rgba(0,0,0,0.5) !important; }
+
+        /* Services bento grid light cards */
+        .dark [class*="bg-background"][class*="border"] {
+            background-color: #1e2020 !important;
+            border-color: rgba(255,255,255,0.07) !important;
+        }
+
+        /* Testimonials glass cards */
+        .dark .glass {
+            background: rgba(30,32,32,0.85);
+            border-color: rgba(255,255,255,0.08) !important;
+        }
+
+        /* Contact section */
+        .dark #contact h3 { color: #f0f0eb; }
+        .dark #contact p { color: rgba(240,240,235,0.75); }
+        .dark .border-primary\/5 { border-color: rgba(204,12,57,0.15) !important; }
+
+        /* Contact form */
+        .dark #contact-form input,
+        .dark #contact-form textarea {
+            color: #f0f0eb !important;
+            border-bottom-color: rgba(255,255,255,0.15) !important;
+        }
+        .dark #contact-form input:focus,
+        .dark #contact-form textarea:focus {
+            border-bottom-color: #cc0c39 !important;
+        }
+        .dark .bg-surface.p-8 { background-color: #1a1c19 !important; }
+        .dark .bg-primary\/5 { background-color: rgba(204,12,57,0.08) !important; }
+
+        /* Welcome screen input */
+        .dark #usernameInput {
+            color: #f0f0eb !important;
+            border-bottom-color: rgba(240,240,235,0.2) !important;
+        }
+
+        /* Footer */
+        .dark footer {
+            background-color: #1a1c19 !important;
+            border-top-color: rgba(255,255,255,0.06) !important;
+        }
+        .dark footer p,
+        .dark footer a { color: rgba(240,240,235,0.45) !important; }
+        .dark footer a:hover { color: #cc0c39 !important; }
+
+        /* ScrollSpy inline spans */
+        .dark span.text-onBackground\/40 { color: rgba(240,240,235,0.45) !important; }
+
+        /* Project section heading */
+        .dark #projects h2, .dark #projects p { color: #f0f0eb; }
+        .dark #projects p { color: rgba(240,240,235,0.6); }
+
+        /* Headings across dark */
+        .dark h2, .dark h3 { color: #f0f0eb; }
+
+        /* ── Language and Theme Toggles ──────────────── */
+        .control-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #cc0c39;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            font-family: 'Space Grotesk', sans-serif;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 14px rgba(204,12,57,0.35);
+            transition: transform 0.25s cubic-bezier(0.23,1,0.32,1), box-shadow 0.25s ease, background 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .control-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 60% 35%, rgba(255,255,255,0.25), transparent 70%);
+        }
+        .control-btn:hover {
+            transform: scale(1.12) rotate(-5deg);
+            box-shadow: 0 8px 24px rgba(204,12,57,0.5);
+            background: #e6781e;
+        }
+        .dark .control-btn {
+            background: #e6781e;
+            box-shadow: 0 4px 14px rgba(230,120,30,0.35);
+        }
+        .dark .control-btn:hover {
+            background: #cc0c39;
+            box-shadow: 0 8px 24px rgba(230,120,30,0.5);
+        }
+        /* Star-shaped accent icon inside theme btn */
+        .control-btn .btn-icon {
+            font-size: 18px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Custom Cursor */
+        #cursor-dot,
+        #cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            transition: opacity 0.3s ease, transform 0.15s ease-out, background-color 0.3s ease, border-color 0.3s ease;
+            opacity: 0;
+        }
+
+        #cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #cc0c39;
+        }
+
+        #cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(204, 12, 57, 0.5);
+        }
+
+        @media (pointer: fine) {
+
+            body:hover #cursor-dot,
+            body:hover #cursor-outline {
+                opacity: 1;
+            }
+        }
+
+        .cursor-hover #cursor-outline {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: rgba(204, 12, 57, 0.1);
+            border-color: #cc0c39;
+        }
+
+        .cursor-hover #cursor-dot {
+            transform: translate(-50%, -50%) scale(0);
+        }
+
+        /* Nav Active States */
+        .nav-link.active {
+            color: #cc0c39 !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #cc0c39;
+            margin-top: 4px;
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        /* Magnetic Class */
+        .magnetic {
+            transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* WhatsApp Wobble */
+        @keyframes wobble {
+            0% {
+                transform: rotate(0);
+            }
+
+            15% {
+                transform: rotate(-10deg) scale(1.1);
+            }
+
+            30% {
+                transform: rotate(10deg) scale(1.1);
+            }
+
+            45% {
+                transform: rotate(-10deg) scale(1.1);
+            }
+
+            60% {
+                transform: rotate(10deg) scale(1.1);
+            }
+
+            75% {
+                transform: rotate(-5deg) scale(1.1);
+            }
+
+            100% {
+                transform: rotate(0) scale(1.1);
+            }
+        }
+
+        .whatsapp-float:hover svg {
+            animation: wobble 0.8s ease-in-out infinite;
+        }
+
+        /* ── Lightbox ────────────────────────────────── */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9990;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            animation: fadeIn 0.3s ease;
+        }
+        #lightbox.open { display: flex; }
+        #lightbox-media {
+            max-width: min(90vw, 1100px);
+            max-height: 90vh;
+            border-radius: 1.5rem;
+            object-fit: contain;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            animation: slideUp 0.35s ease;
+        }
+        #lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+        #lightbox-close:hover {
+            background: #cc0c39;
+            transform: scale(1.1) rotate(90deg);
+        }
+        #lightbox-caption {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        /* Expand hint on project cards */
+        .project-card {
+            cursor: zoom-in;
+        }
+        .project-card .expand-hint {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: opacity 0.3s, transform 0.3s;
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+        .project-card:hover .expand-hint {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-onBackground dark:bg-darkBackground dark:text-darkOnBackground font-body overflow-x-hidden selection:bg-primary selection:text-white transition-colors duration-500">
+
+    <!-- VIEW 1: WELCOME SCREEN -->
+    <div id="welcome-view"
+        class="fixed inset-0 z-50 bg-background flex flex-col items-center justify-center transition-opacity duration-1000">
+        <div class="fixed inset-0 z-0 vanguard-glow pointer-events-none"></div>
+        <div class="fixed inset-0 z-0 vanguard-glow-red pointer-events-none"></div>
+
+        <main
+            class="relative z-10 p-6 text-center max-w-4xl w-full flex flex-col items-center justify-center min-h-screen">
+            <div class="fixed top-12 right-12 hidden md:block opacity-0 animate-[fadeIn_2s_ease-in-out_forwards]">
+                <span class="font-label text-[10px] tracking-[0.4em] text-onBackground/40 uppercase">The Vanguard
+                    Editorial</span>
+            </div>
+
+            <div class="w-full space-y-12 animate-[slideUp_1s_ease-out_forwards]">
+                <header class="space-y-4">
+                    <h1
+                        class="font-headline italic text-7xl md:text-9xl leading-none tracking-tight text-glow text-onBackground" data-i18n="welcome">
+                        Bienvenido
+                    </h1>
+                    <p class="font-label text-accent2 text-xs md:text-sm tracking-[0.3em] uppercase font-bold">
+                        A Multimedia Vanguard Exhibition
+                    </p>
+                </header>
+
+                <div class="flex flex-col items-center gap-12 w-full mt-10">
+                    <div class="relative w-full max-w-lg group">
+                        <label for="usernameInput"
+                            class="absolute -top-8 left-0 text-center w-full font-label text-xs uppercase tracking-widest text-onBackground/50 transition-colors group-focus-within:text-primary">
+                            ¿Cómo te llamas?
+                        </label>
+                        <input type="text" id="usernameInput" placeholder="Tu nombre aquí"
+                            class="w-full bg-transparent border-0 border-b-[1px] border-onBackground/20 py-4 text-3xl md:text-5xl font-headline italic focus:ring-0 focus:border-primary transition-all duration-500 placeholder:text-onBackground/10 text-onBackground text-center outline-none"
+                            autocomplete="off">
+                        <div
+                            class="absolute bottom-0 left-1/2 h-[2px] w-0 bg-primary transition-all duration-700 group-focus-within:w-full group-focus-within:-translate-x-1/2 -translate-x-1/2">
+                        </div>
+                    </div>
+
+                    <button id="enterBtn"
+                        class="group relative px-12 py-5 overflow-hidden rounded-full bg-primary text-white font-label text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold transition-all duration-500 hover:scale-105 hover:bg-accent1 hover:shadow-[0_10px_40px_rgba(230,120,30,0.3)] shadow-[0_10px_30px_rgba(204,12,57,0.2)] magnetic">
+                        <span class="relative z-10 flex items-center gap-3">
+                            <span data-i18n="enter_experience">Entrar a la Experiencia</span>
+                            <span
+                                class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward_ios</span>
+                        </span>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+                        </div>
+                    </button>
+                    <p id="errorMsg"
+                        class="text-primary text-xs font-label uppercase tracking-widest opacity-0 transition-opacity">
+                        Por favor, dime tu nombre para continuar.</p>
+                </div>
+            </div>
+
+            <!-- Language and Theme controls in welcome screen -->
+            <div class="fixed top-8 left-8 flex gap-3 z-50">
+                <button id="langToggleWelcome" class="control-btn" title="Cambiar idioma">EN</button>
+                <button id="themeToggleWelcome" class="control-btn" title="Cambiar tema">
+                    <span class="btn-icon material-symbols-outlined" style="font-size:17px;font-variation-settings:'FILL' 1,'wght' 600;">nightlight</span>
+                </button>
+            </div>
+
+            <div
+                class="fixed bottom-12 left-12 right-12 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-label tracking-[0.2em] text-onBackground/40 uppercase">
+                <div>© 2024 Liz Portfolio</div>
+                <div class="flex gap-8">
+                    <span class="flex items-center gap-2"><span
+                            class="material-symbols-outlined text-[14px]">terminal</span>Cúcuta Node</span>
+                    <span class="flex items-center gap-2"><span
+                            class="material-symbols-outlined text-[14px]">security</span>Neural Protocol</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- VIEW 2: MAIN LANDING PAGE -->
+    <div id="main-view" class="hidden opacity-0 transition-opacity duration-1000 min-h-screen relative flex flex-col">
+        <!-- Overlay Sidebar (Mobile) -->
+        <div id="mobile-sidebar"
+            class="fixed inset-0 z-[60] bg-black/20 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+            <aside
+                class="absolute top-0 left-0 h-full w-80 bg-white shadow-2xl transform -translate-x-full transition-transform duration-500 flex flex-col p-8"
+                id="sidebar-content">
+                <div class="flex items-center justify-between mb-12">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden bg-primary/10 border p-1 border-primary/20">
+                            <!-- Placeholder avatar, ideal for Liz to change -->
+                            <img src="imagenes/ChatGPT%20Image%207%20may%202026%2C%2002_46_15%20a.m..png"
+                                alt="Liz" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <div>
+                            <h3 class="font-headline italic text-primary font-bold text-lg">Liz</h3>
+                            <p class="font-label text-[10px] uppercase tracking-widest text-onBackground/50">Multimedia
+                                Vanguard</p>
+                        </div>
+                    </div>
+                    <button class="material-symbols-outlined text-onBackground/50 hover:text-primary transition-colors"
+                        id="closeSidebarBtn">close</button>
+                </div>
+
+                <nav class="flex flex-col gap-6 font-label uppercase tracking-widest text-sm">
+                    <a href="#hero"
+                        class="flex items-center gap-4 text-primary border-l-4 border-primary pl-4 bg-primary/5 py-3 font-bold click-close-sidebar">
+                        <span class="material-symbols-outlined">star</span> Inspiration
+                    </a>
+                    <a href="#services"
+                        class="flex items-center gap-4 text-onBackground/60 pl-4 hover:text-secondary hover:bg-secondary/5 transition-all py-3 click-close-sidebar">
+                        <span class="material-symbols-outlined">terminal</span> Services
+                    </a>
+                    <a href="#projects"
+                        class="flex items-center gap-4 text-onBackground/60 pl-4 hover:text-accent1 hover:bg-accent1/5 transition-all py-3 click-close-sidebar">
+                        <span class="material-symbols-outlined">gallery_thumbnail</span> Exhibition
+                    </a>
+                    <a href="#contact"
+                        class="flex items-center gap-4 text-onBackground/60 pl-4 hover:text-primary hover:bg-primary/5 transition-all py-3 click-close-sidebar">
+                        <span class="material-symbols-outlined">send</span> Connect
+                    </a>
+                </nav>
+                <div class="mt-auto pt-8 border-t border-black/5">
+                    <p class="font-label text-[10px] text-onBackground/30 uppercase tracking-widest text-center">Cúcuta,
+                        CO</p>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Desktop Header -->
+        <header
+            class="glass fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-5 border-b border-black/5">
+            <div class="flex items-center gap-4">
+                <button
+                    class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform md:hidden"
+                    id="openSidebarBtn">menu</button>
+                <div
+                    class="hidden md:flex w-10 h-10 rounded-full overflow-hidden bg-primary/10 border p-[2px] border-primary/20">
+                    <img src="imagenes/ChatGPT%20Image%207%20may%202026%2C%2002_46_15%20a.m..png"
+                        alt="Liz" class="w-full h-full object-cover rounded-full">
+                </div>
+                <h1 class="text-xl md:text-2xl font-black text-primary uppercase tracking-widest font-headline italic">
+                    LIZ VANGUARD</h1>
+            </div>
+            <nav class="hidden md:flex gap-8 items-center font-label text-sm tracking-widest uppercase font-bold">
+                <a href="#hero"
+                    class="nav-link text-onBackground/60 hover:text-primary transition-all duration-300" data-i18n="inspiration">Inspiration</a>
+                <a href="#services"
+                    class="nav-link text-onBackground/60 hover:text-secondary transition-all duration-300" data-i18n="services">Services</a>
+                <a href="#projects"
+                    class="nav-link text-onBackground/60 hover:text-accent1 transition-all duration-300" data-i18n="exhibition">Exhibition</a>
+                <a href="#contact"
+                    class="nav-link text-onBackground/60 hover:text-primary transition-all duration-300" data-i18n="connect">Connect</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button id="langToggleMain" class="control-btn" style="display:none;" title="Cambiar idioma">EN</button>
+                <button id="themeToggleMain" class="control-btn" style="display:none;" title="Cambiar tema">
+                    <span class="btn-icon material-symbols-outlined" style="font-size:17px;font-variation-settings:'FILL' 1,'wght' 600;">nightlight</span>
+                </button>
+                <a href="#contact"
+                    class="hidden md:inline-flex px-6 py-2 bg-primary text-white font-label text-[10px] uppercase tracking-widest rounded-full hover:bg-accent1 hover:shadow-lg transition-all font-bold magnetic">
+                    <span data-i18n="start_revolution">Start Revolution</span>
+                </a>
+                <span class="material-symbols-outlined text-accent2 animate-pulse">emergency</span>
+            </div>
+        </header>
+
+        <main class="pt-24 flex-1">
+            <!-- Hero Section -->
+            <section id="hero" class="relative px-6 md:px-12 py-20 md:py-32 max-w-[1400px] mx-auto overflow-hidden">
+                <div class="grid md:grid-cols-12 gap-12 items-center">
+                    <div class="md:col-span-8 z-10 reveal-on-scroll">
+                        <div
+                            class="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full bg-white border border-black/5 shadow-sm">
+                            <span class="material-symbols-outlined text-accent1 text-sm">stars</span>
+                            <span
+                                class="font-label text-[10px] uppercase tracking-[0.2em] text-onBackground font-bold">Neural Strategy &amp; Design</span>
+                        </div>
+                        <h1
+                            class="font-headline text-5xl md:text-7xl lg:text-8xl leading-[1.1] italic font-bold tracking-tighter mb-8 text-onBackground">
+                            <span class="block text-primary gradient-text"><span
+                                     id="displayName">Invitado</span>,</span>
+                            <span class="block" data-i18n="hero_subtitle">mereces posicionarte como el mejor.</span>
+                        </h1>
+                        <p class="font-body text-lg md:text-2xl text-onBackground/70 dark:text-darkOnBackground/70 max-w-2xl leading-relaxed mb-10" data-i18n="hero_desc">
+                            No más marcas aburridas.<br />
+                            Creamos estrategias y ecosistemas digitales que evocan <span
+                                class="font-bold text-secondary">seguridad, lujo y confianza</span>.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#contact"
+                                class="px-8 py-4 md:px-10 md:py-5 bg-primary text-white rounded-full font-label text-xs md:text-sm font-bold uppercase tracking-widest shadow-lg shadow-primary/30 hover:-translate-y-1 hover:shadow-xl hover:bg-accent1 transition-all duration-300 magnetic">
+                                Eleva tu Marca
+                            </a>
+                            <a href="#projects"
+                                class="px-8 py-4 md:px-10 md:py-5 bg-white border border-black/10 text-onBackground rounded-full font-label text-xs md:text-sm font-bold uppercase tracking-widest shadow-sm hover:bg-black/5 hover:-translate-y-1 transition-all duration-300">
+                                Ver Portafolio
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:col-span-4 relative reveal-on-scroll" style="transition-delay: 0.2s;">
+                        <div
+                            class="aspect-[3/4] rounded-full md:rounded-3xl overflow-hidden bg-surface shadow-2xl relative group border border-black/5">
+                            <img src="imagenes/cucuta.webp"
+                                alt="Cúcuta, Colombia"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-6 left-6 md:bottom-8 md:left-8">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="w-12 h-12 flex items-center justify-center bg-white/20 backdrop-blur-md rounded-full shadow-lg border border-white/30">
+                                        <span class="material-symbols-outlined text-white text-lg">location_on</span>
+                                    </div>
+                                    <span
+                                        class="font-label text-xs uppercase tracking-[0.2em] font-bold text-white shadow-sm">
+                                        Proudly from Cúcuta
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="absolute -top-12 -right-12 w-48 h-48 border-[1px] border-accent2/40 rounded-full animate-[ping_3s_ease-in-out_infinite]">
+                        </div>
+                        <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-secondary/10 rounded-full blur-2xl"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services" class="px-6 md:px-12 py-24 bg-surface border-y border-black/5">
+                <div class="max-w-[1400px] mx-auto">
+                    <div class="flex justify-between items-end mb-16 reveal-on-scroll">
+                        <div class="max-w-2xl">
+                            <span
+                                class="font-label text-secondary tracking-[0.3em] uppercase text-xs mb-4 block font-bold">Mis
+                                Especialidades</span>
+                            <h2
+                                class="font-headline text-5xl md:text-6xl italic font-bold mb-6 text-onBackground leading-tight">
+                                Engineering <br /> <span class="text-primary not-italic">& Design</span>
+                            </h2>
+                            <p class="font-body text-lg text-onBackground/60">
+                                Fusionamos la estética vanguardista, el diseño de interfaces y la precisión técnica en
+                                multimedia.
+                                Servicios creados para empresas y marcas personales que exigen posicionamiento y calidad
+                                premium.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Bento Grid Services -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 md:h-[600px]">
+
+                        <!-- Brand Identity -->
+                        <div class="md:col-span-2 group relative overflow-hidden rounded-3xl transition-all duration-500 hover:shadow-xl reveal-on-scroll h-64 md:h-auto">
+                            <img src="imagenes/brand.png" alt="Brand Identity" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-br from-black/70 via-black/40 to-transparent"></div>
+                            <div class="absolute inset-0 hover:bg-accent1/10 transition-colors duration-500"></div>
+                            <span class="material-symbols-outlined text-5xl text-accent1 absolute top-8 right-8 opacity-60 group-hover:scale-110 group-hover:opacity-90 transition-all" style="font-variation-settings:'FILL' 1;">polyline</span>
+                            <div class="relative z-10 h-full flex flex-col justify-end p-8">
+                                <h3 class="font-headline text-3xl md:text-4xl italic font-bold mb-3 text-white" data-i18n="svc1_title">Brand Identity</h3>
+                                <p class="font-body text-white/80 mb-4 max-w-sm text-sm" data-i18n="svc1_desc">Identidad visual y vectorización. Diseñamos el alma de tu presencia digital con la psicología neuronal adecuada para evocar autoridad y elegancia.</p>
+                                <span class="inline-flex items-center gap-2 font-label text-[10px] uppercase tracking-widest text-accent1 font-bold">
+                                    Visual Core <span class="material-symbols-outlined text-[12px]">arrow_outward</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Motion & Video -->
+                        <div class="group relative overflow-hidden rounded-3xl transition-all duration-500 hover:shadow-xl reveal-on-scroll h-64 md:h-auto" style="transition-delay: 0.1s;">
+                            <img src="imagenes/video y edicion.webp" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Video & Edición">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-secondary/30 to-transparent"></div>
+                            <div class="relative z-10 h-full flex flex-col justify-between p-8">
+                                <div class="flex justify-between items-start text-white">
+                                    <span class="material-symbols-outlined text-4xl" style="font-variation-settings:'FILL' 1;">movie_edit</span>
+                                    <span class="font-label text-[10px] uppercase tracking-widest font-bold opacity-70" data-i18n="svc2_tag">Production</span>
+                                </div>
+                                <div class="text-white">
+                                    <h3 class="font-headline text-2xl font-bold mb-2" data-i18n="svc2_title">Video &amp; Edición</h3>
+                                    <p class="font-body text-xs opacity-80 leading-relaxed" data-i18n="svc2_desc">Videos dinámicos, corporativos y con storytelling que capturan y retienen la atención en milisegundos.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Photography -->
+                        <div class="group relative overflow-hidden rounded-3xl transition-all duration-500 hover:shadow-xl reveal-on-scroll h-64 md:h-auto" style="transition-delay: 0.2s;">
+                            <img src="imagenes/fotografia...jpg" alt="Fotografía" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-primary/20 to-transparent"></div>
+                            <div class="relative z-10 h-full flex flex-col justify-between p-8">
+                                <div class="flex justify-between items-start text-white">
+                                    <span class="material-symbols-outlined text-4xl" style="font-variation-settings:'FILL' 1;">photo_camera</span>
+                                    <span class="font-label text-[10px] uppercase tracking-widest font-bold opacity-70" data-i18n="svc3_tag">Capture</span>
+                                </div>
+                                <div class="text-white">
+                                    <h3 class="font-headline text-2xl font-bold mb-2" data-i18n="svc3_title">Fotografía</h3>
+                                    <p class="font-body text-xs opacity-80 leading-relaxed" data-i18n="svc3_desc">Dirección de arte enfocada en lifestyle, fotografía publicitaria y de producto.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Graphic Design & Packaging -->
+                        <div class="md:col-span-2 group relative overflow-hidden rounded-3xl transition-all duration-500 hover:shadow-2xl reveal-on-scroll h-64 md:h-auto" style="transition-delay: 0.3s;">
+                            <img src="imagenes/creative-packaging-designs.jpg" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Graphic &amp; Packaging">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent"></div>
+                            <div class="relative z-10 h-full flex flex-col justify-end p-8">
+                                <h3 class="font-headline text-3xl md:text-4xl italic font-bold mb-3 text-white" data-i18n="svc4_title">Graphic &amp; Packaging</h3>
+                                <p class="font-body text-white/70 mb-4 max-w-sm text-sm" data-i18n="svc4_desc">Piezas gráficas para marketing y diseño de empaques. Enganchamos la percepción del usuario en la experiencia del "Unboxing".</p>
+                                <span class="inline-flex items-center gap-2 font-label text-[10px] uppercase tracking-widest text-light font-bold">
+                                    Haptic Design <span class="material-symbols-outlined text-[12px]">arrow_outward</span>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Portfolio Projects (Horizontal Scroll Canvas) -->
+            <section id="projects" class="py-24 bg-background overflow-hidden">
+                <div class="px-6 md:px-12 mb-12 max-w-[1400px] mx-auto reveal-on-scroll">
+                    <h2 class="font-headline text-4xl md:text-5xl italic font-bold text-onBackground">Featured <span
+                            class="text-accent1 not-italic">Exhibition</span></h2>
+                    <p class="font-body text-onBackground/60 mt-4 max-w-lg">Trabajos reales demostrando creatividad
+                        fresca, estrategia de vanguardia e ingeniería multimedia.</p>
+                </div>
+                <!-- Rail -->
+                <div class="flex gap-6 md:gap-8 overflow-x-auto pb-12 px-6 md:px-12 snap-x snap-mandatory mx-auto custom-scrollbar reveal-on-scroll"
+                    style="transition-delay: 0.2s;">
+
+                    <!-- Project Card 1: Video -->
+                    <div class="project-card snap-center shrink-0 w-[85vw] md:w-[600px] aspect-[4/3] md:aspect-video rounded-3xl overflow-hidden bg-white dark:bg-darkSurface shadow-lg relative group border border-black/5 dark:border-white/5"
+                        data-lightbox-src="imagenes/edicion de video .mp4" data-lightbox-type="video" data-lightbox-caption="Edición de Video — Motion Production">
+                        <video src="imagenes/edicion de video .mp4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" muted loop playsinline onmouseover="this.play()" onmouseout="this.pause()"></video>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <span class="expand-hint material-symbols-outlined text-white text-lg">open_in_full</span>
+                        <div class="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
+                            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-[10px] font-label font-bold uppercase tracking-widest mb-4 w-max">Motion Production</span>
+                            <h4 class="font-headline text-3xl md:text-4xl text-white font-bold italic mb-2" data-i18n="p1_title">Edición de Video</h4>
+                            <p class="font-body text-sm text-white/80 line-clamp-2" data-i18n="p1_desc">Producción audiovisual dinámica con transiciones de vanguardia y storytelling de alto impacto.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2: Packaging -->
+                    <div class="project-card snap-center shrink-0 w-[85vw] md:w-[600px] aspect-[4/3] md:aspect-video rounded-3xl overflow-hidden bg-white dark:bg-darkSurface shadow-lg relative group border border-black/5 dark:border-white/5"
+                        data-lightbox-src="imagenes/packaging.jpg" data-lightbox-type="image" data-lightbox-caption="Packaging Premium — Haptic Design">
+                        <img src="imagenes/packaging.jpg" alt="Packaging Project" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <span class="expand-hint material-symbols-outlined text-white text-lg">open_in_full</span>
+                        <div class="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
+                            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-[10px] font-label font-bold uppercase tracking-widest mb-4 w-max">Haptic Design</span>
+                            <h4 class="font-headline text-3xl md:text-4xl text-white font-bold italic mb-2" data-i18n="p2_title">Packaging Premium</h4>
+                            <p class="font-body text-sm text-white/80 line-clamp-2" data-i18n="p2_desc">Diseño de empaques que eleva la percepción de calidad y exclusividad en la experiencia de unboxing.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 3: Editorial -->
+                    <div class="project-card snap-center shrink-0 w-[85vw] md:w-[600px] aspect-[4/3] md:aspect-video rounded-3xl overflow-hidden bg-white dark:bg-darkSurface shadow-lg relative group border border-black/5 dark:border-white/5"
+                        data-lightbox-src="imagenes/editorial.jpg" data-lightbox-type="image" data-lightbox-caption="Diseño Editorial — Art Direction">
+                        <img src="imagenes/editorial.jpg" alt="Editorial Project" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <span class="expand-hint material-symbols-outlined text-white text-lg">open_in_full</span>
+                        <div class="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
+                            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-[10px] font-label font-bold uppercase tracking-widest mb-4 w-max">Art Direction</span>
+                            <h4 class="font-headline text-3xl md:text-4xl text-white font-bold italic mb-2" data-i18n="p3_title">Diseño Editorial</h4>
+                            <p class="font-body text-sm text-white/80 line-clamp-2" data-i18n="p3_desc">Composición y maquetación de alto nivel para marcas que buscan una estética editorial moderna.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 4: Photography -->
+                    <div class="project-card snap-center shrink-0 w-[85vw] md:w-[600px] aspect-[4/3] md:aspect-video rounded-3xl overflow-hidden bg-white dark:bg-darkSurface shadow-lg relative group border border-black/5 dark:border-white/5"
+                        data-lightbox-src="imagenes/fotografia y post .jpeg" data-lightbox-type="image" data-lightbox-caption="Fotografía & Post — Visual Capture">
+                        <img src="imagenes/fotografia y post .jpeg" alt="Photography Project" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <span class="expand-hint material-symbols-outlined text-white text-lg">open_in_full</span>
+                        <div class="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
+                            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-[10px] font-label font-bold uppercase tracking-widest mb-4 w-max">Visual Capture</span>
+                            <h4 class="font-headline text-3xl md:text-4xl text-white font-bold italic mb-2" data-i18n="p4_title">Fotografía &amp; Post</h4>
+                            <p class="font-body text-sm text-white/80 line-clamp-2" data-i18n="p4_desc">Captura y post-producción profesional enfocada en resaltar la esencia única de cada proyecto.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 5: Editorial 2 -->
+                    <div class="project-card snap-center shrink-0 w-[85vw] md:w-[600px] aspect-[4/3] md:aspect-video rounded-3xl overflow-hidden bg-white dark:bg-darkSurface shadow-lg relative group border border-black/5 dark:border-white/5"
+                        data-lightbox-src="imagenes/editorial 2.jpg" data-lightbox-type="image" data-lightbox-caption="Editorial Vol.2 — Art Direction">
+                        <img src="imagenes/editorial 2.jpg" alt="Editorial Vol 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <span class="expand-hint material-symbols-outlined text-white text-lg">open_in_full</span>
+                        <div class="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
+                            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-[10px] font-label font-bold uppercase tracking-widest mb-4 w-max">Art Direction Vol.2</span>
+                            <h4 class="font-headline text-3xl md:text-4xl text-white font-bold italic mb-2">Editorial Vol. II</h4>
+                            <p class="font-body text-sm text-white/80 line-clamp-2">Segunda entrega editorial: composición avanzada, paleta refinada y dirección visual de impacto.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 6: Ilustraciones -->
+                    <div class="project-card snap-center shrink-0 w-[85vw] md:w-[600px] aspect-[4/3] md:aspect-video rounded-3xl overflow-hidden bg-white dark:bg-darkSurface shadow-lg relative group border border-black/5 dark:border-white/5"
+                        data-lightbox-src="imagenes/ilustraciones.jpeg" data-lightbox-type="image" data-lightbox-caption="Ilustraciones — Visual Identity">
+                        <img src="imagenes/ilustraciones.jpeg" alt="Ilustraciones" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <span class="expand-hint material-symbols-outlined text-white text-lg">open_in_full</span>
+                        <div class="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
+                            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-[10px] font-label font-bold uppercase tracking-widest mb-4 w-max">Illustration</span>
+                            <h4 class="font-headline text-3xl md:text-4xl text-white font-bold italic mb-2">Ilustraciones</h4>
+                            <p class="font-body text-sm text-white/80 line-clamp-2">Ilustraciones digitales y vectoriales que construyen la identidad visual de marcas con personalidad propia.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 7: Papelería -->
+                    <div class="project-card snap-center shrink-0 w-[85vw] md:w-[600px] aspect-[4/3] md:aspect-video rounded-3xl overflow-hidden bg-white dark:bg-darkSurface shadow-lg relative group border border-black/5 dark:border-white/5"
+                        data-lightbox-src="imagenes/papeleria.jpeg" data-lightbox-type="image" data-lightbox-caption="Papelería — Brand Collateral">
+                        <img src="imagenes/papeleria.jpeg" alt="Papelería" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <span class="expand-hint material-symbols-outlined text-white text-lg">open_in_full</span>
+                        <div class="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
+                            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-[10px] font-label font-bold uppercase tracking-widest mb-4 w-max">Brand Collateral</span>
+                            <h4 class="font-headline text-3xl md:text-4xl text-white font-bold italic mb-2">Papelería Corporativa</h4>
+                            <p class="font-body text-sm text-white/80 line-clamp-2">Diseño de papelería y material corporativo que refuerza la coherencia visual de una marca en todos sus puntos de contacto.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section id="testimonials" class="py-24 bg-surface dark:bg-darkSurface border-y border-black/5 dark:border-white/5">
+                <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+                    <div class="mb-16 reveal-on-scroll">
+                        <span class="font-label text-secondary tracking-[0.3em] uppercase text-xs mb-4 block font-bold" data-i18n="testimonials_label">Casos de Éxito</span>
+                        <h2 class="font-headline text-4xl md:text-6xl italic font-bold text-onBackground dark:text-darkOnBackground" data-i18n="testimonials_title">Confianza en la <br /><span class="text-primary not-italic">Vanguardia</span></h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Sofia -->
+                        <div class="glass p-8 rounded-3xl border border-black/5 dark:border-white/10 reveal-on-scroll">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">S</div>
+                                <div>
+                                    <h4 class="font-headline italic font-bold">Sofia</h4>
+                                    <p class="font-label text-[10px] uppercase tracking-widest text-onBackground/50 dark:text-darkOnBackground/50">Dueña de Salón de Belleza</p>
+                                </div>
+                            </div>
+                            <p class="font-body italic text-lg text-onBackground/80 dark:text-darkOnBackground/80 leading-relaxed">
+                                "Mi portafolio muestra soluciones visuales y digitales que transformaron mi marca, ayudándome a construir una identidad moderna y elegante que conecta con mi público."
+                            </p>
+                        </div>
+
+                        <!-- Carlos -->
+                        <div class="glass p-8 rounded-3xl border border-black/5 dark:border-white/10 reveal-on-scroll" style="transition-delay: 0.1s;">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary font-bold">C</div>
+                                <div>
+                                    <h4 class="font-headline italic font-bold">Carlos</h4>
+                                    <p class="font-label text-[10px] uppercase tracking-widest text-onBackground/50 dark:text-darkOnBackground/50">Empresario, Negocio Familiar</p>
+                                </div>
+                            </div>
+                            <p class="font-body italic text-lg text-onBackground/80 dark:text-darkOnBackground/80 leading-relaxed">
+                                "Logramos transformar nuestra marca tradicional en una propuesta visual contemporánea, manteniendo nuestra esencia y reforzando nuestro valor estratégico."
+                            </p>
+                        </div>
+
+                        <!-- Daniel -->
+                        <div class="glass p-8 rounded-3xl border border-black/5 dark:border-white/10 reveal-on-scroll" style="transition-delay: 0.2s;">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-full bg-accent1/10 flex items-center justify-center text-accent1 font-bold">D</div>
+                                <div>
+                                    <h4 class="font-headline italic font-bold">Daniel</h4>
+                                    <p class="font-label text-[10px] uppercase tracking-widest text-onBackground/50 dark:text-darkOnBackground/50">Fundador, Marca de Ropa</p>
+                                </div>
+                            </div>
+                            <p class="font-body italic text-lg text-onBackground/80 dark:text-darkOnBackground/80 leading-relaxed">
+                                "Desarrollo de contenido visual atractivo capaz de construir una estética perfectamente alineada con mi público joven y digital."
+                            </p>
+                        </div>
+
+                        <!-- Mariana -->
+                        <div class="glass p-8 rounded-3xl border border-black/5 dark:border-white/10 reveal-on-scroll" style="transition-delay: 0.3s;">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-full bg-accent2/10 flex items-center justify-center text-accent2 font-bold">M</div>
+                                <div>
+                                    <h4 class="font-headline italic font-bold">Dra. Mariana López</h4>
+                                    <p class="font-label text-[10px] uppercase tracking-widest text-onBackground/50 dark:text-darkOnBackground/50">Médica Especialista</p>
+                                </div>
+                            </div>
+                            <p class="font-body italic text-lg text-onBackground/80 dark:text-darkOnBackground/80 leading-relaxed">
+                                "Transformó mi identidad visual creando una estética coherente entre el espacio físico y el digital, elevando la percepción de calidad y exclusividad."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cúcuta Pride Divider -->
+            <section class="max-w-[1400px] mx-auto px-6 md:px-12 py-12 reveal-on-scroll">
+                <div
+                    class="relative h-64 md:h-80 flex items-center justify-center overflow-hidden rounded-3xl shadow-2xl">
+                    <img src="imagenes/cucuta.webp"
+                        alt="Cúcuta"
+                        class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary/90 to-[#8A0524]/70"></div>
+                    <div class="relative z-10 text-center px-6">
+                        <h2 class="text-3xl md:text-5xl font-headline italic font-bold mb-4 text-white">Ingeniería que
+                            nace en <br /> Cúcuta &#x1F1E8;&#x1F1F4; para el mundo</h2>
+                        <div class="w-20 h-[3px] bg-accent2 mx-auto mb-6"></div>
+                        <p class="font-label text-white/80 uppercase tracking-[0.4em] text-[10px] md:text-xs font-bold">
+                            Talento Local. Ejecución Global.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact / Call to action Section -->
+            <section id="contact" class="px-6 md:px-12 py-24 mb-12 max-w-[1400px] mx-auto reveal-on-scroll">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                    <div class="lg:col-span-6">
+                        <span
+                            class="font-label text-primary uppercase tracking-[0.4em] text-xs mb-4 block font-bold">Start
+                            the Future</span>
+                        <h3 class="text-5xl md:text-6xl font-headline font-bold mb-6 italic text-onBackground">
+                            Connect with the <br /> <span class="text-accent1 not-italic">Vanguard</span>
+                        </h3>
+                        <div class="p-6 border-l-4 border-primary bg-primary/5 rounded-r-xl mb-10">
+                            <p class="text-onBackground/80 font-body text-lg leading-relaxed">
+                                <span id="contactName" class="font-bold text-primary"></span>, si estás listo para dar
+                                un salto en calidad y quieres que tu marca transmita auténtica innovación, elegancia y
+                                empoderamiento, construyamos algo increíble juntos.
+                            </p>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-6 group cursor-pointer w-max">
+                                <div
+                                    class="w-14 h-14 flex items-center justify-center bg-black/5 rounded-full border border-black/5 group-hover:bg-primary transition-colors duration-300">
+                                    <span
+                                        class="material-symbols-outlined text-accent1 group-hover:text-white transition-colors">mark_email_read</span>
+                                </div>
+                                <div>
+                                    <p
+                                        class="text-onBackground/40 text-[10px] uppercase tracking-widest font-label font-bold">
+                                        Direct Channel</p>
+                                    <p
+                                        class="text-onBackground font-headline text-xl group-hover:text-primary transition-colors">
+                                        hello@lizportfolio.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form Card -->
+                    <div class="lg:col-span-6">
+                        <div
+                            class="bg-surface p-8 md:p-12 rounded-3xl border border-black/5 shadow-2xl relative overflow-hidden group">
+                            <div
+                                class="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[80px] rounded-full transition-all duration-700 group-hover:bg-accent1/10 group-hover:scale-125">
+                            </div>
+                            <form id="contact-form" class="space-y-8 relative z-10">
+                                <div class="relative group/input">
+                                    <input type="text" id="contact-name" placeholder="TU NOMBRE / EMPRESA"
+                                        class="w-full bg-transparent border-0 border-b-2 border-black/10 focus:ring-0 focus:border-primary transition-all duration-300 py-4 font-label text-xs tracking-widest uppercase outline-none text-onBackground font-bold placeholder:text-onBackground/30"
+                                        required>
+                                </div>
+                                <div class="relative group/input">
+                                    <input type="email" id="contact-email" placeholder="CORREO ELECTRÓNICO"
+                                        class="w-full bg-transparent border-0 border-b-2 border-black/10 focus:ring-0 focus:border-primary transition-all duration-300 py-4 font-label text-xs tracking-widest uppercase outline-none text-onBackground font-bold placeholder:text-onBackground/30"
+                                        required>
+                                </div>
+                                <div class="relative group/input">
+                                    <textarea id="contact-project" placeholder="CUÉNTAME SOBRE TU PROYECTO" rows="3"
+                                        class="w-full bg-transparent border-0 border-b-2 border-black/10 focus:ring-0 focus:border-primary transition-all duration-300 py-4 font-label text-xs tracking-widest uppercase outline-none resize-none text-onBackground font-bold placeholder:text-onBackground/30"
+                                        required></textarea>
+                                </div>
+                                <button type="submit"
+                                    class="w-full py-5 bg-onBackground dark:bg-primary text-white rounded-xl font-label uppercase tracking-[0.3em] text-[10px] md:text-xs font-bold hover:bg-primary dark:hover:bg-accent1 transition-all duration-500 shadow-xl hover:shadow-primary/30 flex items-center justify-center gap-3 active:scale-95 magnetic">
+                                    <span data-i18n="initiate_connection">Initiate Connection</span> <span
+                                        class="material-symbols-outlined text-sm">rocket_launch</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-surface w-full py-12 px-6 md:px-12 border-t border-black/5">
+            <div
+                class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+                <div class="flex flex-col gap-2">
+                    <p class="font-label text-[10px] tracking-[0.2em] uppercase text-onBackground/40 font-bold">© 2024
+                        LIZ VANGUARD. ENGINEERED IN CÚCUTA.</p>
+                    <div class="flex gap-6 justify-center md:justify-start mt-2">
+                        <a href="#"
+                            class="text-onBackground/50 hover:text-primary transition-colors font-label text-[10px] uppercase tracking-widest font-bold">Instagram</a>
+                        <a href="#"
+                            class="text-onBackground/50 hover:text-secondary transition-colors font-label text-[10px] uppercase tracking-widest font-bold">Behance</a>
+                        <a href="#"
+                            class="text-onBackground/50 hover:text-accent1 transition-colors font-label text-[10px] uppercase tracking-widest font-bold">LinkedIn</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <p class="font-headline italic text-lg md:text-xl text-onBackground/60">
+                        The future is a <span class="text-primary font-bold">collaboration</span>.
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- WhatsApp Floating Button -->
+        <a href="https://wa.me/3025987235" class="whatsapp-float magnetic" target="_blank"
+            aria-label="Chat on WhatsApp">
+            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M16 0C7.16 0 0 7.16 0 16c0 2.82.73 5.48 2.02 7.78L0 31l7.39-1.94C9.64 30.21 12.19 32 16 32c8.84 0 16-7.16 16-16S24.84 0 16 0zm8.03 21.84c-.34.97-1.71 1.78-2.36 1.9-.65.12-1.29.21-3.92-.84-3.18-1.27-5.23-4.51-5.39-4.72-.16-.21-1.3-1.72-1.3-3.28 0-1.56.82-2.33 1.11-2.64.29-.31.64-.39.84-.39.21 0 .42 0 .6.01.19.01.45-.07.71.55s.88 2.13.95 2.28.13.34.02.55c-.1.21-.16.34-.31.52s-.33.4-.47.54c-.15.16-.32.34-.14.65.18.31.8 1.31 1.71 2.12 1.17 1.04 2.16 1.36 2.47 1.52s.49.11.67-.1c.18-.21.78-.9 1-1.21.21-.31.42-.26.71-.15.29.11 1.84.87 2.16 1.03s.53.24.61.37c.08.14.08.78-.26 1.75z" />
+            </svg>
+        </a>
+    </div>
+
+    <!-- Lightbox Overlay -->
+    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada">
+        <button id="lightbox-close" title="Cerrar" aria-label="Cerrar">
+            <span class="material-symbols-outlined" style="font-size:24px;">close</span>
+        </button>
+        <img id="lightbox-media" src="" alt="" style="display:none;">
+        <video id="lightbox-video" controls style="display:none; max-width:min(90vw,1100px); max-height:90vh; border-radius:1.5rem; box-shadow:0 40px 80px rgba(0,0,0,0.6);"></video>
+        <p id="lightbox-caption"></p>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-outline"></div>
+
+    <!-- MAIN LOGIC (Name handling, animations, transitions) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const welcomeView = document.getElementById('welcome-view');
+            const mainView = document.getElementById('main-view');
+            const enterBtn = document.getElementById('enterBtn');
+            const usernameInput = document.getElementById('usernameInput');
+            const displayNameSpans = document.querySelectorAll('#displayName');
+            const contactNameSpan = document.getElementById('contactName');
+            const errorMsg = document.getElementById('errorMsg');
+
+            // Sidebar elements
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            const sidebarContent = document.getElementById('sidebar-content');
+            const openSidebarBtn = document.getElementById('openSidebarBtn');
+            const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+            const sidebarLinks = document.querySelectorAll('.click-close-sidebar');
+
+            // Translation Dictionary
+            const translations = {
+                es: {
+                    // Welcome
+                    welcome: "Bienvenido",
+                    enter_experience: "Entrar a la Experiencia",
+                    ask_name: "¿Cómo te llamas?",
+                    placeholder_name: "Tu nombre aquí",
+                    error_name: "Por favor, dime tu nombre para continuar.",
+                    // Nav
+                    inspiration: "Inspiración",
+                    services: "Servicios",
+                    exhibition: "Exhibición",
+                    connect: "Conectar",
+                    start_revolution: "Elevar Marca",
+                    // Hero
+                    hero_subtitle: "mereces posicionarte como el mejor.",
+                    hero_desc: "No más marcas aburridas. Creamos estrategias y ecosistemas digitales que evocan seguridad, lujo y confianza.",
+                    // Services
+                    svc1_title: "Brand Identity",
+                    svc1_desc: "Identidad visual y vectorización. Diseñamos el alma de tu presencia digital con la psicología neuronal adecuada para evocar autoridad y elegancia.",
+                    svc2_tag: "Producción",
+                    svc2_title: "Video & Edición",
+                    svc2_desc: "Videos dinámicos, corporativos y con storytelling que capturan y retienen la atención en milisegundos.",
+                    svc3_tag: "Captura",
+                    svc3_title: "Fotografía",
+                    svc3_desc: "Dirección de arte enfocada en lifestyle, fotografía publicitaria y de producto.",
+                    svc4_title: "Graphic & Packaging",
+                    svc4_desc: 'Piezas gráficas para marketing y diseño de empaques. Enganchamos la percepción del usuario en la experiencia del "Unboxing".',
+                    // Projects
+                    p1_title: "Edición de Video",
+                    p1_desc: "Producción audiovisual dinámica con transiciones de vanguardia y storytelling de alto impacto.",
+                    p2_title: "Packaging Premium",
+                    p2_desc: "Diseño de empaques que eleva la percepción de calidad y exclusividad en la experiencia de unboxing.",
+                    p3_title: "Diseño Editorial",
+                    p3_desc: "Composición y maquetación de alto nivel para marcas que buscan una estética editorial moderna.",
+                    p4_title: "Fotografía & Post",
+                    p4_desc: "Captura y post-producción profesional enfocada en resaltar la esencia única de cada proyecto.",
+                    // Testimonials
+                    testimonials_label: "Casos de Éxito",
+                    testimonials_title: "Confianza en la Vanguardia",
+                    // Contact
+                    initiate_connection: "Iniciar Conexión"
+                },
+                en: {
+                    // Welcome
+                    welcome: "Welcome",
+                    enter_experience: "Enter the Experience",
+                    ask_name: "What's your name?",
+                    placeholder_name: "Your name here",
+                    error_name: "Please tell me your name to continue.",
+                    // Nav
+                    inspiration: "Inspiration",
+                    services: "Services",
+                    exhibition: "Exhibition",
+                    connect: "Connect",
+                    start_revolution: "Elevate Brand",
+                    // Hero
+                    hero_subtitle: "you deserve to stand out as the best.",
+                    hero_desc: "No more boring brands. We create digital ecosystems that evoke security, luxury, and confidence.",
+                    // Services
+                    svc1_title: "Brand Identity",
+                    svc1_desc: "Visual identity and vectorization. We design the soul of your digital presence using neural psychology to evoke authority and elegance.",
+                    svc2_tag: "Production",
+                    svc2_title: "Video & Editing",
+                    svc2_desc: "Dynamic corporate videos with storytelling that captures and retains attention in milliseconds.",
+                    svc3_tag: "Capture",
+                    svc3_title: "Photography",
+                    svc3_desc: "Art direction focused on lifestyle, advertising photography, and product shoots.",
+                    svc4_title: "Graphic & Packaging",
+                    svc4_desc: 'Graphic pieces for marketing and packaging design. We hook the user\'s perception through the "Unboxing" experience.',
+                    // Projects
+                    p1_title: "Video Editing",
+                    p1_desc: "Dynamic audiovisual production with vanguard transitions and high-impact storytelling.",
+                    p2_title: "Premium Packaging",
+                    p2_desc: "Packaging design that elevates quality perception and exclusivity in the unboxing experience.",
+                    p3_title: "Editorial Design",
+                    p3_desc: "High-level layout and composition for brands seeking a modern editorial aesthetic.",
+                    p4_title: "Photography & Post",
+                    p4_desc: "Professional capture and post-production focused on highlighting each project's unique essence.",
+                    // Testimonials
+                    testimonials_label: "Success Cases",
+                    testimonials_title: "Trust in the Vanguard",
+                    // Contact
+                    initiate_connection: "Initiate Connection"
+                }
+            };
+
+            let currentLang = 'es';
+
+            // Keys that contain HTML children — update only the text node, not innerHTML
+            const htmlKeys = new Set(['hero_subtitle']);
+
+            function updateLanguage(lang) {
+                currentLang = lang;
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    const value = translations[lang][key];
+                    if (!value) return;
+
+                    if (htmlKeys.has(key)) {
+                        // Only update the last text node to avoid overwriting child spans
+                        const nodes = el.childNodes;
+                        let textNode = null;
+                        for (let i = nodes.length - 1; i >= 0; i--) {
+                            if (nodes[i].nodeType === Node.TEXT_NODE) {
+                                textNode = nodes[i];
+                                break;
+                            }
+                        }
+                        if (textNode) textNode.textContent = value;
+                        else el.textContent = value;
+                    } else {
+                        el.textContent = value;
+                    }
+                });
+
+                // Placeholder and label updates
+                const nameInput = document.getElementById('usernameInput');
+                if (nameInput) nameInput.placeholder = translations[lang].placeholder_name;
+                document.querySelectorAll('label[for="usernameInput"]').forEach(l => {
+                    l.textContent = translations[lang].ask_name;
+                });
+
+                // Update lang toggle button text only
+                document.querySelectorAll('#langToggleWelcome, #langToggleMain').forEach(btn => {
+                    btn.textContent = lang === 'es' ? 'EN' : 'ES';
+                });
+
+                // Update <html lang> attribute
+                document.documentElement.lang = lang;
+            }
+
+            document.querySelectorAll('#langToggleWelcome, #langToggleMain').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    updateLanguage(currentLang === 'es' ? 'en' : 'es');
+                });
+            });
+
+            // Theme Logic
+            function toggleTheme() {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateThemeIcons(isDark);
+            }
+
+            function updateThemeIcons(isDark) {
+                document.querySelectorAll('.btn-icon').forEach(span => {
+                    span.textContent = isDark ? 'wb_sunny' : 'nightlight';
+                });
+            }
+
+            // Show desktop controls after DOM ready
+            function showDesktopControls() {
+                const isMd = window.innerWidth >= 768;
+                ['langToggleMain','themeToggleMain'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = isMd ? 'flex' : 'none';
+                });
+            }
+            showDesktopControls();
+            window.addEventListener('resize', showDesktopControls);
+
+            // Initialize Theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                updateThemeIcons(true);
+            }
+
+            document.querySelectorAll('#themeToggleWelcome, #themeToggleMain').forEach(btn => {
+                btn.addEventListener('click', toggleTheme);
+            });
+
+            // 1. Logic for Transitioning views
+            function enterPortfolio() {
+                const nameValue = usernameInput.value.trim();
+
+                if (nameValue === "") {
+                    // Show error
+                    errorMsg.textContent = translations[currentLang].error_name;
+                    errorMsg.classList.remove('opacity-0');
+                    usernameInput.focus();
+                    return;
+                }
+
+                errorMsg.classList.add('opacity-0');
+
+                // Inject the name into the main view
+                displayNameSpans.forEach(el => el.textContent = nameValue);
+                if (contactNameSpan) contactNameSpan.textContent = nameValue;
+
+                // Fade out welcome view
+                welcomeView.style.opacity = '0';
+
+                setTimeout(() => {
+                    welcomeView.classList.add('hidden');
+
+                    // Show main view
+                    window.scrollTo(0, 0); // ensure we start at the top
+                    mainView.classList.remove('hidden');
+                    // Small delay to allow display:block to trigger before opacity transitions
+                    setTimeout(() => {
+                        mainView.classList.remove('opacity-0');
+                        initScrollAnimations();
+                    }, 50);
+                }, 1000); // Wait for CSS transition (1000ms)
+            }
+
+            enterBtn.addEventListener('click', enterPortfolio);
+            usernameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') enterPortfolio();
+            });
+
+            // Focus input immediately for UX
+            setTimeout(() => usernameInput.focus(), 500);
+
+            // 2. Logic for Sidebar
+            function openSidebar() {
+                mobileSidebar.classList.remove('hidden');
+                setTimeout(() => {
+                    mobileSidebar.classList.remove('opacity-0');
+                    sidebarContent.classList.remove('-translate-x-full');
+                }, 10);
+            }
+
+            function closeSidebar() {
+                sidebarContent.classList.add('-translate-x-full');
+                mobileSidebar.classList.add('opacity-0');
+                setTimeout(() => {
+                    mobileSidebar.classList.add('hidden');
+                }, 500); // wait for css transition
+            }
+
+            openSidebarBtn.addEventListener('click', openSidebar);
+            closeSidebarBtn.addEventListener('click', closeSidebar);
+            mobileSidebar.addEventListener('click', (e) => {
+                if (e.target === mobileSidebar) closeSidebar();
+            });
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', closeSidebar);
+            });
+
+            // 3. Scroll Reveal Animations
+            function initScrollAnimations() {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.15
+                };
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                const revealElements = document.querySelectorAll('.reveal-on-scroll');
+                revealElements.forEach(el => observer.observe(el));
+            }
+
+            // 4. WhatsApp Form Integration
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const nameInput = document.getElementById('contact-name');
+                    const projectInput = document.getElementById('contact-project');
+
+                    const name = nameInput.value.trim();
+                    const project = projectInput.value.trim();
+
+                    const message = `Hola Liz!\n Mi nombre es ${name}.\n Me gustaría hablar sobre mi proyecto: ${project}`;
+                    const encodedMessage = encodeURIComponent(message);
+                    const whatsappUrl = `https://wa.me/3025987235?text=${encodedMessage}`;
+
+                    window.open(whatsappUrl, '_blank');
+                });
+            }
+
+            // 5. Custom Cursor Logic
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorOutline = document.getElementById('cursor-outline');
+
+            if (window.matchMedia('(pointer: fine)').matches) {
+                window.addEventListener('mousemove', (e) => {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+
+                    // Add a slight delay for the outline for a trailing effect
+                    cursorOutline.animate({
+                        left: `${posX}px`,
+                        top: `${posY}px`
+                    }, { duration: 500, fill: "forwards" });
+
+                    // Detect hover over interactive elements
+                    const target = e.target;
+                    if (target.closest('a, button, input, textarea, .cursor-pointer')) {
+                        document.body.classList.add('cursor-hover');
+                    } else {
+                        document.body.classList.remove('cursor-hover');
+                    }
+                });
+            } else {
+                cursorDot.style.display = 'none';
+                cursorOutline.style.display = 'none';
+            }
+
+            // 6. Magnetic Effect Logic
+            const magneticElements = document.querySelectorAll('.magnetic');
+            magneticElements.forEach(el => {
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                });
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = 'translate(0, 0)';
+                });
+            });
+
+            // 7. ScrollSpy / Nav Highlighting
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // 8. Lightbox Logic
+            const lightbox = document.getElementById('lightbox');
+            const lbMedia = document.getElementById('lightbox-media');
+            const lbVideo = document.getElementById('lightbox-video');
+            const lbCaption = document.getElementById('lightbox-caption');
+            const lbClose = document.getElementById('lightbox-close');
+
+            function openLightbox(src, type, caption) {
+                if (type === 'video') {
+                    lbVideo.src = src;
+                    lbVideo.style.display = 'block';
+                    lbMedia.style.display = 'none';
+                } else {
+                    lbMedia.src = src;
+                    lbMedia.alt = caption || '';
+                    lbMedia.style.display = 'block';
+                    lbVideo.style.display = 'none';
+                    lbVideo.pause && lbVideo.pause();
+                    lbVideo.src = '';
+                }
+                lbCaption.textContent = caption || '';
+                lightbox.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('open');
+                document.body.style.overflow = '';
+                lbVideo.pause && lbVideo.pause();
+                lbVideo.src = '';
+                lbMedia.src = '';
+            }
+
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const src = card.getAttribute('data-lightbox-src');
+                    const type = card.getAttribute('data-lightbox-type');
+                    const caption = card.getAttribute('data-lightbox-caption');
+                    if (src) openLightbox(src, type, caption);
+                });
+            });
+
+            lbClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', e => {
+                if (e.target === lightbox) closeLightbox();
+            });
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') closeLightbox();
+            });
+        });
+    </script>
+</body>
+
+</html>
